@@ -1,23 +1,43 @@
-import fs from 'fs';
-import path from 'path';
 
-export default function handler(req, res) {
+
+import mongoose from 'mongoose';
+
+// Connect to the MongoDB database
+mongoose.connect('mongodb+srv://vercel:13572468@duolanguage.ogwfosp.mongodb.net/?retryWrites=true&w=majority', {
+
+});
+
+// Create a schema for the email collection
+const emailSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+});
+
+// Create a model based on the schema
+const Email = mongoose.model('Email', emailSchema);
+
+export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { email } = req.body; // Assuming the email is sent in the request body
 
-    const filePath = path.join(process.cwd(), '/public/email_list.txt'); // Specify the file path
+    try {
+      // Create a new email document
+      const newEmail = new Email({ email });
 
-    const content = `Email: ${email}\n`; // Format the content to be written to the file
+      // Save the email to the database
+      await newEmail.save();
 
-    fs.appendFile(filePath, content, 'utf8', (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).end('Error writing file');
-      } else {
-        res.status(200).end('Email written to file successfully');
-      }
-    });
+      res.status(200).end('Email stored successfully');
+    } catch (error) {
+      console.error(error);
+      res.status(500).end('Error storing email');
+    }
   } else {
     res.status(405).end('Method Not Allowed');
   }
 }
+
+
+
