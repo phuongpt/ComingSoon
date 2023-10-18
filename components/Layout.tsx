@@ -14,14 +14,14 @@ const Layout = ({ children, title = "This is the default title" }: Props) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta
         name="description"
-        content="Slioth - is a One Page Saas Lading Page build with Tailwind CSS and NextJs created by themeptation"
+        content="Nine Language"
       />
-      <meta property="og:title" content={`${title} | Themeptation`} />
+      <meta property="og:title" content={`${title}`} />
       <meta
         property="og:description"
-        content="Slioth - is a One Page Saas Lading Page build with Tailwind CSS and NextJs created by themeptation"
+        content="Nine Language"
       />
-      <meta property="og:url" content="https://slioth.themepttation.net/" />
+      <meta property="og:url" content="https://ninelanguage.com/" />
       <meta property="og:type" content="website" />
     </Head>
     {children}
